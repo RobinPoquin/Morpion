@@ -30,25 +30,26 @@ const Morpion = () => {
     let box_array = [box1, box2, box3, box4, box5, box6, box7, box8, box9];
 
     // Fonction appelée lors d'un clic sur une case
-    const toggle = (e, num) =>{
+    const toggle = (e, num) => {
         // Si le jeu est verrouillé, on ne fait rien
         if (lock) {
-            return 0;
+            return;
         }
-        // Détermination du joueur actuel et mise à jour de la case cliquée
-        if (count%2 === 0) {
-            e.target.innerHTML = `<img src='${cross_icon}'>`;
-            data[num] = "x";
-            setCount(++count);
-        }
-        else {
-            e.target.innerHTML = `<img src='${circle_icon}'>`;
-            data[num] = "o";
-            setCount(++count);
-        }
+
+        // Détermination du joueur actuel
+        const currentPlayer = count % 2 === 0 ? "x" : "o";
+        const icon = currentPlayer === "x" ? cross_icon : circle_icon;
+
+        // Mise à jour de la case cliquée avec l'icône du joueur actuel
+        e.target.innerHTML = `<img src='${icon}'>`;
+        data[num] = currentPlayer;
+
+        // Incrémentation du compteur de coups
+        setCount(count + 1);
+
         // Vérification des conditions de victoire
         checkWin();
-    }
+    };
 
     const checkWin = () => {
         // Définir toutes les combinaisons gagnantes possibles.
