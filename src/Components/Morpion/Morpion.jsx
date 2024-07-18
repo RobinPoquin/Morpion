@@ -45,7 +45,7 @@ const Morpion = () => {
         data[num] = currentPlayer;
 
         // Incrémentation du compteur de coups
-        setCount(count + 1);
+        setCount(count++);
 
         // Vérification des conditions de victoire
         checkWin();
@@ -79,13 +79,9 @@ const Morpion = () => {
         // Verrouillage du jeu
         setLock(true);
         // Mise à jour du message de victoire
-        if (winner ==="x") {
-            titleRef.current.innerHTML = `Félicitation : <img src=${cross_icon}> a gagné !`;
-        }
-        else{
-            titleRef.current.innerHTML = `Félicitation : <img src=${circle_icon}> a gagné !`;
-        }
-    }
+        const winnerIcon = winner === "x" ? cross_icon : circle_icon;
+        titleRef.current.innerHTML = `Félicitations : <img src=${winnerIcon}> a gagné !`;
+    };
 
     // Fonction pour réinitialiser le jeu
     const reset = () => {
@@ -94,12 +90,12 @@ const Morpion = () => {
         // Réinitialisation des données du jeu
         data = ["", "", "", "", "", "", "", "", ""];
         // Réinitialisation du titre
-        titleRef.current.innerHTML = 'Morpion en <span> REACT</span>'
+        titleRef.current.innerHTML = 'Morpion en <span>REACT</span>';
         // Réinitialisation de chaque case
-        box_array.map((e) => {
-            e.current.innerHTML = "";
-        })
-    }
+        box_array.forEach((box) => {
+            box.current.innerHTML = "";
+        });
+    };
 
     // Rendu du composant Morpion
     return (
