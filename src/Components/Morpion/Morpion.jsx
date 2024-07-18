@@ -50,36 +50,28 @@ const Morpion = () => {
         checkWin();
     }
 
-    // Fonction pour vérifier les conditions de victoire
     const checkWin = () => {
-        if(data[0] === data[1] && data[1] === data[2] && data[2] !== ""){
-            won(data[2]);
+        // Définir toutes les combinaisons gagnantes possibles.
+        const winningCombinations = [
+            [0, 1, 2], // Première rangée
+            [3, 4, 5], // Deuxième rangée
+            [6, 7, 8], // Troisième rangée
+            [0, 3, 6], // Première colonne
+            [1, 4, 7], // Deuxième colonne
+            [2, 5, 8], // Troisième colonne
+            [0, 4, 8], // Diagonale de gauche à droite
+            [2, 4, 6]  // Diagonale de droite à gauche
+        ];
+    
+        // Parcourir chaque combinaison gagnante.
+        for (const [a, b, c] of winningCombinations) {
+            // Vérifier si les trois cases de la combinaison sont identiques et non vides.
+            if (data[a] && data[a] === data[b] && data[a] === data[c]) {
+                // Appeler la fonction 'won' avec le symbole du gagnant.
+                return won(data[a]);
+            }
         }
-        else if (data[3] === data[4] && data[4] === data[5] && data[5] !== ""){
-            won(data[5]);
-        }
-        else if (data[6] === data[7] && data[7] === data[8] && data[8] !== ""){
-            won(data[8]);
-        }
-        else if (data[0] === data[3] && data[3] === data[6] && data[6] !== ""){
-            won(data[6]);
-        }
-        else if (data[1] === data[4] && data[4] === data[7] && data[7] !== ""){
-            won(data[7]);
-        }
-        else if (data[2] === data[5] && data[5] === data[8] && data[8] !== ""){
-            won(data[8]);
-        }
-        else if (data[0] === data[4] && data[4] === data[8] && data[8] !== ""){
-            won(data[8]);
-        }
-        else if (data[0] === data[1] && data[1] === data[2] && data[2] !== ""){
-            won(data[2]);
-        }
-        else if (data[2] === data[4] && data[4] === data[6] && data[6] !== ""){
-            won(data[6]);
-        }
-    }
+    };
 
     // Fonction appelée lorsqu'un joueur gagne
     const won = (winner) => {
